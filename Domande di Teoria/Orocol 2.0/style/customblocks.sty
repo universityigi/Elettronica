@@ -1,0 +1,146 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{customblocks}[2024/12/22 Personal style package for blocks]
+
+% -------------------------------------------------------------------
+% Pacchetti aggiuntivi (se non già caricati nel main)
+% -------------------------------------------------------------------
+\RequirePackage{tcolorbox}      % Per i box colorati
+\RequirePackage{listings}       % Per il codice
+\RequirePackage{booktabs}       % Per la formattazione di tabelle
+\RequirePackage{titlesec}       % Per personalizzare titoli
+\RequirePackage{fancyhdr}       % Per header e footer
+\RequirePackage{fontawesome5}   % Per icone
+\RequirePackage{float}          % Per forzare il posizionamento [H]
+\RequirePackage{xcolor}         % Per la gestione dei colori
+\RequirePackage[labelfont={color=blue}, textfont={color=blue}]{caption} % Didascalie blu
+
+% Migliorie tipografiche
+\RequirePackage{microtype}      % Per una migliore resa tipografica
+
+% -------------------------------------------------------------------
+% Impostazioni dell'intestazione e del piè di pagina
+% -------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{Orocol 2.0}
+\fancyhead[R]{\rightmark}
+\fancyfoot[C]{\thepage}
+
+% -------------------------------------------------------------------
+% Personalizzazione dei titoli di capitolo
+% -------------------------------------------------------------------
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{red!70!black}}
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-0.5cm}{1cm}
+
+% -------------------------------------------------------------------
+% Definizione dei blocchi personalizzati con tcolorbox
+% -------------------------------------------------------------------
+\newtcolorbox{definitionblock}{
+  colframe=red!80!black,
+  colback=red!10,
+  coltitle=black,
+  title=\faBook\ \textbf{Definizione},
+  sharp corners
+}
+
+\newtcolorbox{theoremblock}{
+  colframe=orange!80!black,
+  colback=orange!10,
+  coltitle=black,
+  title=\faLightbulb\ \textbf{Teorema},
+  enhanced,
+  drop shadow=black!50,
+  sharp corners,
+  width=\dimexpr\textwidth-2cm
+}
+
+\newtcolorbox{tipsblock}{
+  colframe=yellow!70!black,
+  colback=yellow!10,
+  coltitle=black,
+  title=\faInfoCircle\ \textbf{Consiglio},
+  sharp corners
+}
+
+\newtcolorbox{observationblock}{
+  colframe=blue!80!black,
+  colback=blue!10,
+  coltitle=black,
+  title=\faEye\ \textbf{Osservazione},
+  sharp corners
+}
+
+% -------------------------------------------------------------------
+% Stile per blocchi di codice
+% -------------------------------------------------------------------
+\lstdefinestyle{customcode}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{purple},
+  showstringspaces=false,
+  frame=single,
+  breaklines=true
+}
+
+% Comando per includere un file di codice
+\newcommand{\codeblock}[2]{
+  \begin{tcolorbox}[colframe=black, colback=white, title=\faCode\ \textbf{Codice in #1}]
+    \lstinputlisting[language=#1, style=customcode]{#2}
+  \end{tcolorbox}
+}
+
+% -------------------------------------------------------------------
+% Ambiente per algoritmi in forma tabellare
+% -------------------------------------------------------------------
+\newenvironment{algoblock}[1]
+{%
+  \begin{tcolorbox}[
+    colframe=orange!70!black,
+    colback=orange!10,
+    title=\faCogs\ \textbf{#1},
+    sharp corners,
+    width=\textwidth
+  ]
+  \begin{tabular}{p{0.15\textwidth} p{0.8\textwidth}}
+}
+{\end{tabular}\end{tcolorbox}}
+
+% -------------------------------------------------------------------
+% Nuovo comando per immagini in linea (float [H])
+% -------------------------------------------------------------------
+\newcommand{\inlinefigure}[3][0.8\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+  \end{figure}%
+}
+
+% -------------------------------------------------------------------
+% Copertina personalizzata
+% -------------------------------------------------------------------
+\newcommand{\customcover}{
+    \begin{titlepage}
+        \centering
+        \vspace*{1cm}
+        \includegraphics[width=0.8\textwidth]{images/logo_sapienza.png}\par
+        \vspace{1cm}
+        {\Huge\textbf{Orocol 2.0}\par}
+        \vspace{0.5cm}
+        {\Large\textit{Università di Roma La Sapienza}\par}
+        \vspace{1.5cm}
+        {\large
+        \textbf{Corso:} Elettronica\\
+        \textbf{Docente:} Giampiero De Cesare\\
+        \textbf{Anno Accademico:} 2024-2025\par}
+        \vspace{2cm}
+        \textbf{Autore: Francesco Paffetti}\\
+        \vfill
+        \textit{Questi appunti sono distribuiti sotto licenza Creative Commons.}
+    \end{titlepage}
+}

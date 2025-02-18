@@ -1,0 +1,34 @@
+\documentclass[a4paper,12pt]{report}
+
+% Pacchetti di base
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Import dello stile personalizzato (blocchi, layout di pagina ecc.)
+\usepackage{style/customblocks}
+
+\begin{document}
+
+% Copertina
+\customcover
+
+% Indice
+\tableofcontents
+\clearpage
+
+% Includi i capitoli
+\include{chapters/premesse}
+\include{chapters/chap1.tex}
+\include{chapters/chap2.tex}
+
+\end{document}
